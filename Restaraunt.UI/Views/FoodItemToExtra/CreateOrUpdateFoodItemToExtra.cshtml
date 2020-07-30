@@ -1,0 +1,64 @@
+﻿@model Restaraunt.Entities.CreateOrUpdateFoodItemToExtraVM
+<!-- Start Top Search -->
+<div class="top-search">
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input class="form-control" placeholder="Search" type="text">
+            <span class="close-search input-group-addon">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- End Top Search -->
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Категории</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Главная</a>
+                    </li>
+                    <li class="active breadcrumb-item">Категории</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <h1>Создание допа</h1>
+
+                    <h4>Дополнение блюда</h4>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="CreateOrUpdateFoodItemToExtra" asp-controller="FoodItemToExtra">
+                                <input type="hidden" asp-for="Id"/>
+                                @Html.DropDownListFor(a => a.FoodItemId, Model.FoodItems)
+                                @Html.DropDownListFor(a => a.FoodItemExtraId, Model.FoodItemExtras)
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" value="Добавить"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index" asp-controller="Home">Вернуться на главную</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,551 @@
+﻿@using Restaraunt.Entities
+@* @{ *@
+@*     int count = ShoppingsCartFoodsItemsVM.AllCountFoodsItems; *@
+@* } *@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>@ViewData["Title"] - Ресторан</title>
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon">
+    <link rel="apple-touch-icon" href="@Url.Content("~/images/apple-touch-icon.png")">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap.min.css")">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/responsive.css")">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/custom.css")">
+</head>
+<body>
+
+<div class="main-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="custom-select-box">
+                    <select class="form-control selectpicker show-tick" data-placeholder="&#8381; Руб" id="basic">
+                        <option>&#8381; Руб</option>
+                        <option>$ USD</option>
+                        <option>€ EUR</option>
+                    </select>
+                </div>
+                <div class="right-phone-box">
+                    <p>
+                        Свяжись с напи по тел. :-
+                        <a href="#"> +7 984 855 1100</a>
+                    </p>
+                </div>
+                <div class="our-link">
+                    <ul>
+                        <li>
+                            @if (User?.Identity?.IsAuthenticated == true && User.IsInRole(Role.User.ToString()))
+                            {
+                                <a asp-action="PersonalArea" asp-controller="Account">
+                                    Личный кабинет
+                                    <i class="fa fa-user s_color"></i>
+                                    Личный кабинет
+                                </a>
+                            }
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-location-arrow fas"></i> Our location
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-headset fas"></i> Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="login-box">
+                    <select class="form-control selectpicker show-tick" data-placeholder="Sign In" id="basic">
+                        <option>Register Here</option>
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <option asp-action="LogOut" asp-controller="Account">
+                                Выйти
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="text-slid-box">
+                    <div class="carouselTicker" id="offer-box">
+                        <ul class="offer-box">
+                            <li>
+                                <i class="fab fa-opencart"></i> -20% Скидка на утреннюю продукцию после 21:00
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> от -50% до -80% Скидка для больших компаний
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> На все овощи -10%!
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> На оплату картой -5%!
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> -20% Скидка на утреннюю продукцию после 21:00
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> от -50% до -80% Скидка для больших компаний
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> На все овощи -10%!
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> На оплату картой -5%!
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="main-header">
+
+    <!-- Start Navigation -->
+    <nav class="bg-light bootsnav navbar navbar-default navbar-expand-lg navbar-light">
+        <div class="container">
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar-menu" data-toggle="collapse" type="button">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a asp-action="Index" asp-controller="Home" class="navbar-brand">
+                    <img src="@Url.Content("~/images/logo.png")" class="logo" alt="">
+                </a>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="ml-auto nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Home" class="nav-link">На главную</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-action="LogOut" asp-controller="Account" class="nav-link">Выйти</a>
+                        }
+                    </li>
+                    <li class="active dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Магазин ▼</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">Sidebar Shop</a>
+                            </li>
+                            <li>
+                                <a asp-action="" asp-controller="">Список покупок</a>
+                            </li>
+                            <li>
+                                <a asp-action="" asp-controller="">Корзина</a>
+                            </li>
+                            <li>
+                                @if (User?.Identity?.IsAuthenticated == true)
+                                {
+                                    <a asp-action="LogOut" asp-controller="Account">Exit</a>
+                                }
+                            </li>
+                            <li>
+
+                            </li>
+                            <li>
+                                <a href="#">Wishlist</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Галерея</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+            <!-- Start Atribute Navigation -->
+
+            <div class="attr-nav">
+                <ul>
+                    <li class="search">
+                        <a href="#">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </li>
+                    <li class="side-menu">
+                        <a asp-action="Index" asp-controller="ShoppingCart">
+                            <i class="fa fa-shopping-bag" id="shoppingCartView"></i>
+                            <span class="badge" id="shoppingCart"></span>
+                            <p>Корзина</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- End Atribute Navigation -->
+        </div>
+        <!-- Start Side Menu -->
+        <div class="side">
+            <a class="close-side" href="#">
+                <i class="fa fa-times"></i>
+            </a>
+            <li class="cart-box">
+                <ul class="cart-list">
+                    <li>
+                        <a class="photo" href="#">
+                            <img src="@Url.Content("~/images/img-pro-01.jpg")" class="cart-thumb" alt=""/>
+                        </a>
+                        <h6>
+                            <a href="#">Delica omtantur </a>
+                        </h6>
+                        <p>
+                            1x -
+                            <span class="price">$80.00</span>
+                        </p>
+                    </li>
+                    <li>
+                        <a class="photo" href="#">
+                            <img src="@Url.Content("~/images/img-pro-02.jpg")" class="cart-thumb" alt=""/>
+                        </a>
+                        <h6>
+                            <a href="#">Omnes ocurreret</a>
+                        </h6>
+                        <p>
+                            1x -
+                            <span class="price">$60.00</span>
+                        </p>
+                    </li>
+                    <li>
+                        <a class="photo" href="#">
+                            <img src="@Url.Content("~/images/img-pro-03.jpg")" class="cart-thumb" alt=""/>
+                        </a>
+                        <h6>
+                            <a href="#">Agam facilisis</a>
+                        </h6>
+                        <p>
+                            1x -
+                            <span class="price">$40.00</span>
+                        </p>
+                    </li>
+                    <li class="total">
+                        <a class="btn btn-cart btn-default hvr-hover" href="#">VIEW CART</a>
+                        <span class="float-right">
+                            <strong>Total</strong>: $180.00
+                        </span>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <!-- End Side Menu -->
+    </nav>
+    <!-- End Navigation -->
+
+</header>
+
+<!-- Start Top Search -->
+@* <div class="top-search"> *@
+<div>
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input class="form-control" onkeyup="searchInAllItems(value)" placeholder="Search" type="text">
+            <span class="close-search input-group-addon">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- End Top Search -->
+
+@RenderBody()
+
+<!-- Start Instagram Feed  -->
+<div class="instagram-box">
+    <div class="main-instagram owl-carousel owl-theme">
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-01.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-02.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-03.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-04.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-05.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-06.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-07.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-08.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-09.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="ins-inner-box">
+                <img src="@Url.Content("~/images/instagram-img-05.jpg")" alt=""/>
+                <div class="hov-in">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Instagram Feed  -->
+
+<footer>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-top-box">
+                        <h3>Business Time</h3>
+                        <ul class="list-time">
+                            <li>Monday - Friday: 08.00am to 05.00pm</li>
+                            <li>Saturday: 10.00am to 08.00pm</li>
+                            <li>
+                                Sunday:
+                                <span>Closed</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-top-box">
+                        <h3>Newsletter</h3>
+                        <form class="newsletter-box">
+                            <div class="form-group">
+                                <input class="" name="Email" placeholder="Email Address*" type="email"/>
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <button class="btn hvr-hover" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-top-box">
+                        <h3>Social Media</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-pinterest-p"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i aria-hidden="true" class="fab fa-whatsapp"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-widget">
+                        <h4>About Freshshop</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link">
+                        <h4>Information</h4>
+                        <ul>
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Customer Service</a>
+                            </li>
+                            <li>
+                                <a href="#">Our Sitemap</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms &amp; Conditions</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Delivery Information</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link-contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <p>
+                                    <i class="fa-map-marker-alt fas"></i>Address: Michael I. Days 3756
+                                    <br>Preston Street Wichita,
+                                    <br> KS 67213
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <i class="fa-phone-square fas"></i>Phone:
+                                    <a href="tel:+1-888705770">+1-888 705 770</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <i class="fa-envelope fas"></i>Email:
+                                    <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="@Url.Content("~/js/jquery-3.2.1.min.js")"></script>
+<script src="@Url.Content("~/lib/jquery-validation/dist/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/js/popper.min.js")"></script>
+<script src="@Url.Content("~/js/bootstrap.min.js")"></script>
+<!-- ALL PLUGINS -->
+<script src="@Url.Content("~/js/jquery.superslides.min.js")"></script>
+<script src="@Url.Content("~/js/bootstrap-select.js")"></script>
+<script src="@Url.Content("~/js/inewsticker.js")"></script>
+<script src="@Url.Content("~/js/bootsnav.js.")"></script>
+<script src="@Url.Content("~/js/images-loded.min.js")"></script>
+<script src="@Url.Content("~/js/isotope.min.js")"></script>
+<script src="@Url.Content("~/js/owl.carousel.min.js")"></script>
+<script src="@Url.Content("~/js/baguetteBox.min.js")"></script>
+<script src="@Url.Content("~/js/jquery-ui.js")"></script>
+<script src="@Url.Content("~/js/jquery.nicescroll.min.js")"></script>
+<script src="@Url.Content("~/js/form-validator.min.js")"></script>
+<script src="@Url.Content("~/js/contact-form-script.js")"></script>
+<script src="@Url.Content("~/js/custom.js")"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.11.0/umd/react.development.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js"></script>
+
+<script src="~/js/UIReact.jsx" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@RenderSection("Scripts", false)
+
+</body>
+</html>

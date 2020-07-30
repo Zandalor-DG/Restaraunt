@@ -1,0 +1,98 @@
+﻿@using Restaraunt.Entities.SortOrder
+@model Restaraunt.Entities.FoodsCategoriesVM
+@{
+    var orderId = "5BF92152-5595-40F8-9EDA-3B02764584AA";
+}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Категории</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Главная</a>
+                    </li>
+                    <li class="active breadcrumb-item">Категории</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+
+                    @if (Model.Admin)
+                    {
+                        <a asp-action="CreateOrUpdateFoodCategory" asp-controller="FoodCategory">Дюбавить категорию</a>
+                    }
+
+                    <a asp-controller="FoodItemToExtra" asp-action="Index">FoodItemExtra</a>
+
+                    <input class="searchAllItems" type="hidden" value="false" id="@orderId" />
+                    <table class="table">
+                        <thead id="tableHeader">
+                            <tr>
+                                <th>Images</th>
+                                <th>
+                                    <a class="sortOrderClass" href="#" onclick="sortTableFoodCategory('@SortFoodCategory.Name', '@orderId', this)">
+                                        Название категории
+                                        <span class="spanArrow"></span>
+                                    </a>
+                                </th>
+                                <th>Еда</th>
+                                <th>Допы</th>
+                                @if (Model.Admin)
+                                {
+                                    <th>Редактировать</th>
+                                    <th>Удалить</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var foodCategory in Model.FoodsCategories)
+                            {
+                                <tr class="dataRow">
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+                                            <img alt="" class="img-fluid" src="@Url.Content("~/images/img-pro-01.jpg")" />
+                                        </a>
+                                    </td>
+                                    <td class="total-pr">
+                                        <p>
+                                            @foodCategory.Name
+                                        </p>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a asp-action="Index" asp-controller="FoodItem" asp-route-id="@foodCategory.Id">Посмотреть</a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a asp-action="Index" asp-controller="FoodItemExtra" asp-route-id="@foodCategory.Id">Допы</a>
+                                    </td>
+                                    @if (Model.Admin)
+                                    {
+                                        <td class="remove-pr">
+                                            <a asp-controller="FoodCategory" asp-action="CreateOrUpdateFoodCategory" asp-route-id="@foodCategory.Id">Редактировать</a>
+                                        </td>
+                                        <td class="remove-pr">
+                                            <a asp-controller="FoodCategory" asp-action="ConfirmDeleteFoodCategory" asp-route-id="@foodCategory.Id">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

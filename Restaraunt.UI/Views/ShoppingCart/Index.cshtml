@@ -1,0 +1,91 @@
+﻿@model Restaraunt.Entities.ViewModel.ShoppingsCartFoodsItemsVM
+
+<!-- Start Top Search -->
+<div class="top-search">
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input class="form-control" placeholder="Search" type="text">
+            <span class="close-search input-group-addon">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- End Top Search -->
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Категории</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Главная</a>
+                    </li>
+                    <li class="active breadcrumb-item">Категории</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+
+                    <table class="table">
+                        <thead id="tableHeader">
+                        <tr>
+                            <th>Images</th>
+                            <th>Еда</th>
+                            <th>Добавить</th>
+                            <th>Кол-во</th>
+                            <th>Уменьшить</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var shoppingCartFoodItemVm in Model.ShoppingCartFoodItem)
+                        {
+                            <tr class="dataRow">
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img alt="" class="img-fluid" src="@Url.Content("~/images/img-pro-01.jpg")"/>
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <p>
+                                        @shoppingCartFoodItemVm.FoodName
+                                    </p>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#" onclick="AddFoodItemToShoppingCart('@shoppingCartFoodItemVm.FoodItemId')">
+                                        +
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    @shoppingCartFoodItemVm.Count
+                                </td>
+                                <td class="remove-pr">
+                                    <a href="#" onclick="RemoveItemToShoppingCart('@shoppingCartFoodItemVm.FoodItemId')">-</a>
+                                </td>
+                                <td class="remove-pr">
+                                    <a href="#" onclick="DeleteItemToShoppingCart('@shoppingCartFoodItemVm.Id')">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

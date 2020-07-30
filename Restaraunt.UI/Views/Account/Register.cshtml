@@ -1,0 +1,80 @@
+﻿@model Restaraunt.Entities.RegisterModel
+
+<!-- Start Top Search -->
+<div class="top-search">
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input class="form-control" placeholder="Search" type="text">
+            <span class="close-search input-group-addon">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- End Top Search -->
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Категории</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Главная</a>
+                    </li>
+                    <li class="active breadcrumb-item">Категории</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+
+                    <h2>Регистрация</h2>
+
+                    <form asp-action="Register" asp-anti-forgery="true" asp-controller="Account">
+                        <div class="validation" asp-validation-summary="ModelOnly"></div>
+                        <div>
+                            <div>
+                                <label asp-for="Email">Введите Email</label>
+                                <br/>
+                                <input type="text" asp-for="Email"/>
+                                <span asp-validation-for="Email"/>
+                            </div>
+                            <div>
+                                <label asp-for="Name">Представьтесь</label>
+                                <br/>
+                                <input type="text" asp-for="Name"/>
+                                <span asp-validation-for="Name"/>
+                            </div>
+                            <div>
+                                <label asp-for="Password">Введите пароль</label>
+                                <br/>
+                                <input asp-for="Password"/>
+                                <span asp-validation-for="Password"/>
+                            </div>
+                            <div>
+                                <label asp-for="ConfirmPassword">Повторите пароль</label>
+                                <br/>
+                                <input asp-for="ConfirmPassword"/>
+                                <span asp-validation-for="ConfirmPassword"/>
+                            </div>
+                            <div>
+                                <input type="submit" value="Регистрация"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

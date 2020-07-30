@@ -1,0 +1,101 @@
+﻿@using Restaraunt.Entities.SortOrder
+@model Restaraunt.Entities.FoodsItemsExtraVM
+@{
+    var orderId = "977C920C-5995-4152-AA66-678355C0F635";
+}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Допы</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Категории</a>
+                    </li>
+                    <li class="active breadcrumb-item">Допы</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+
+                    @if (Model.Admin)
+                    {
+                        <a asp-action="CreateOrUpdateFoodItemExtra" asp-controller="FoodItemExtra" asp-route-foodCategoryId="@Model.FoodCategoryId">Дюбавить доп</a>
+                    }
+                    
+                    <input class="searchAllItems" type="hidden" value="false" id="@orderId" />
+                    <table class="table">
+                        <thead id="tableHeader">
+                            <tr>
+                                <th>Images</th>
+                                <th>
+                                    <a class="sortOrderClass" href="#" onclick="sortTableFoodItemExtra('@Model.FoodCategoryId', '@SortFoodItemExtra.Name', '@orderId', this)">
+                                        Название
+                                        <span class="spanArrow"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a class="sortOrderClass" href="#" onclick="sortTableFoodItemExtra('@Model.FoodCategoryId', '@SortFoodItemExtra.Price', '@orderId', this)">
+                                        Цена
+                                        <span class="spanArrow"></span>
+                                    </a>
+                                </th>
+                                <th>Купить</th>
+                                @if (Model.Admin)
+                                {
+                                    <th>Редактировать</th>
+                                    <th>Удалить</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var foodItemExtraVm in Model.FoodsItemsExtra)
+                            {
+                            <tr class="dataRow">
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img alt="" class="img-fluid" src="@Url.Content("~/images/img-pro-01.jpg")" />
+                                    </a>
+                                </td>
+                                <td class="total-pr">
+                                    <p>
+                                        @foodItemExtraVm.Name
+                                    </p>
+                                </td>
+                                <td class="total-pr">
+                                    <p>
+                                        @foodItemExtraVm.Price
+                                    </p>
+                                </td>
+                                <td class="add-pr">
+                                    <a class="btn hvr-hover" asp-action="AddFoodItemToShoppingCart" asp-controller="ShoppingCart" asp-route-foodItemExtraId="@foodItemExtraVm.Id">В корзину</a>
+                                </td>
+                                @if (Model.Admin)
+                                {
+                                    <td class="remove-pr">
+                                        <a asp-controller="FoodItemExtra" asp-action="CreateOrUpdateFoodItemExtra" asp-route-id="@foodItemExtraVm.Id" asp-route-foodCategoryId="@Model.FoodCategoryId">Редактировать</a>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a asp-controller="FoodItemExtra" asp-action="ConfirmDeleteFoodItemExtra" asp-route-id="@foodItemExtraVm.Id">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
